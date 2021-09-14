@@ -1,0 +1,31 @@
+<%
+  web_pool_size = (ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5).to_i
+%>
+
+defaults: &defaults
+  adapter:  postgresql
+  encoding: unicode
+  template: template0
+  connect_timeout: 1
+  checkout_timeout: 1
+
+development:
+  <<: *defaults
+  host:     localhost
+  database: tanooki-bakery_development
+  pool: <%= web_pool_size %>
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *defaults
+  host:     localhost
+  database: tanooki-bakery_test
+  pool:     5
+
+production:
+  <<: *defaults
+  url:  <%= ENV['DATABASE_URL'] %>
+  pool: <%= web_pool_size %>
+  timeout: 5000
