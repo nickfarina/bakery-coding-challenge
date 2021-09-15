@@ -1,14 +1,18 @@
 %h3= @oven.name
 
 .cookie-info
-  Cookie in oven:
-  - if @oven.cookie
-    1 cookie with #{@oven.cookie.fillings || "no fillings"}
-    - if @oven.cookie.ready?
-      (Your Cookie is Ready)
-      = button_to "Retrieve Cookie", empty_oven_path, class: 'button tiny'
+  %b Curently in oven:
+
+  -# TODO: localize this view for better pluralization
+  - if @oven.cookies.any?
+    %br
+    %b #{@oven.cookies.count} #{@oven.cookies.first.fillings || "no fillings"} cookie(s)
+
+    - if @oven.cookies.all? { |cookie| cookie.ready? } # this could be moved to the model
+      \- and they're ready!
+      = button_to "Retrieve Cookie(s)", empty_oven_path, class: 'button tiny'
   - else
-    None
+    Nothing
 
 %br
 

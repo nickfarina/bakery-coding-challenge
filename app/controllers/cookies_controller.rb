@@ -3,22 +3,28 @@ class CookiesController < ApplicationController
 
   def new
     @oven = current_user.ovens.find_by!(id: params[:oven_id])
-    if @oven.cookie
-      redirect_to @oven, alert: 'A cookie is already in the oven!'
+    if @oven.cookies.any?
+      redirect_to @oven, alert: 'Something is already in the oven!'
     else
-      @cookie = @oven.build_cookie
+      @cookie = Cookie.new
     end
   end
 
+  # TODO:
   def create
-    @oven = current_user.ovens.find_by!(id: params[:oven_id])
-    @cookie = @oven.create_cookie!(cookie_params)
+    @oven = current_user.ovens.find_by!(id: params[:oven_id]) # TODO: should params be accessed directly here?
+
+    batch_size = params[:batch_size]
+    batch_size.to_i.times do
+      Cookie.create!(cookie_params.merge({ storage: @oven })) # TODO: i think this can reduced to a single sql call
+    end
+
     redirect_to oven_path(@oven)
   end
 
   private
 
   def cookie_params
-    params.require(:cookie).permit(:fillings)
+    params.permit(:fillings)
   end
 end

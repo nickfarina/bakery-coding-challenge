@@ -1,6 +1,6 @@
 class Oven < ActiveRecord::Base
   belongs_to :user
-  has_one :cookie, as: :storage, dependent: :destroy
+  has_many :cookies, as: :storage, dependent: :destroy, class_name: 'Cookie'
 
   validates :user, presence: true
 end

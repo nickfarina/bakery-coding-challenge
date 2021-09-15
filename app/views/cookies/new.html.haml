@@ -1,16 +1,23 @@
 %h3 New Cookie for oven '#{@oven.name}'
 
-= form_for [@oven, @cookie] do |f|
+= form_tag oven_cookies_path do
   .row
     .small-8.columns
-      = f.label :fillings
+      = label_tag :fillings
   .row
     .small-8.columns
-      = f.text_field :fillings
+      = text_field_tag :fillings, '', required: true
 
   .row
     .small-8.columns
-      = f.submit 'Mix and bake', class: 'button'
+      = label_tag :batch_size
+  .row
+    .small-8.columns
+      = number_field_tag :batch_size, 1, required: true
+
+  .row
+    .small-8.columns
+      = submit_tag 'Mix and bake', class: 'button'
 
 
 
