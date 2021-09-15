@@ -17,7 +17,7 @@ export const OrderTable = ({ orders }) => (
     </thead>
     <tbody>
       {orders.map((order) => (
-        <OrderRow order={order} />
+        <OrderRow order={order} key={order.id} />
       ))}
     </tbody>
   </table>
