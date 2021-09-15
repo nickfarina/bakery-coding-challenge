@@ -11,11 +11,13 @@ class OvensController < ApplicationController
 
   def empty
     @oven = current_user.ovens.find_by!(id: params[:id])
+
     if @oven.cookies.any?
-      @oven.cookies.each do |cookie| # TODO: update to single sql call?
+      @oven.cookies.each do |cookie|
         cookie.update_attributes!(storage: current_user)
       end
     end
+
     redirect_to @oven, alert: 'Oven emptied!'
   end
 end
