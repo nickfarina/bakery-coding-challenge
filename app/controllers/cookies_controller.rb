@@ -6,7 +6,7 @@ class CookiesController < ApplicationController
     if @oven.cookies.any?
       redirect_to @oven, alert: 'Something is already in the oven!'
     else
-      @cookie = Cookie.new
+      @cookie = Cookie.new(storage: @oven)
     end
   end
 

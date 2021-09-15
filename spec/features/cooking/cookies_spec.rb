@@ -6,7 +6,7 @@ feature 'Cooking cookies' do
     visit oven_path(oven)
 
     expect(page).to_not have_content 'Chocolate Chip'
-    expect(page).to_not have_content 'Your Cookie is Ready'
+    expect(page).to_not have_content "and they're ready"
 
     click_link_or_button 'Prepare Cookie'
     fill_in 'Fillings', with: 'Chocolate Chip'
@@ -14,11 +14,11 @@ feature 'Cooking cookies' do
 
     expect(current_path).to eq(oven_path(oven))
     expect(page).to have_content 'Chocolate Chip'
-    expect(page).to have_content 'Your Cookie is Ready'
+    expect(page).to have_content "and they're ready"
 
     click_button 'Retrieve Cookie'
     expect(page).to_not have_content 'Chocolate Chip'
-    expect(page).to_not have_content 'Your Cookie is Ready'
+    expect(page).to_not have_content "and they're ready"
 
     visit root_path
     within '.store-inventory' do
@@ -38,7 +38,7 @@ feature 'Cooking cookies' do
     click_button 'Mix and bake'
 
     click_link_or_button  'Prepare Cookie'
-    expect(page).to have_content 'A cookie is already in the oven!'
+    expect(page).to have_content 'Something is already in the oven!'
     expect(current_path).to eq(oven_path(oven))
     expect(page).to_not have_button 'Mix and bake'
   end
