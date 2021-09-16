@@ -10,9 +10,12 @@ class CookiesController < ApplicationController
   end
 
   def create
+    cookies = []
     batch_size.times do
-      Cookie.create!(cookie_create_params)
+      cookies << Cookie.create!(cookie_create_params)
     end
+
+    CookCookiesJob.perform_later(cookies)
 
     redirect_to oven_path(oven)
   end
