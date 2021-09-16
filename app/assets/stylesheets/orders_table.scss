@@ -19,5 +19,11 @@
     text-align: left;
     background-color: #4caf50;
     color: white;
+
+    &.sortable {
+      cursor: pointer;
+      text-decoration: underline;
+      user-select: none;
+    }
   }
 }
