@@ -5,16 +5,11 @@
 
   - if @oven.cookies.any?
     %br
-    %b{ class: 'baking-in-progress' } #{@oven.cookies.count} #{@oven.cookies.first.fillings || "no fillings"} cookie(s)
+    %b #{@oven.cookies.count} #{@oven.cookies.first.fillings || "no fillings"} cookie(s)
 
-    -# this is hiddin in a div with id cookie-status and data attr oven id, display none if cookies are not ready
-    -# the websocket comes down with the oven id signifying cookies are finished
-    -# js
     .retrieve-section{ 'data-oven-id' => @oven.id , class: ("ready" if @oven.cookies_ready?) }
       \- and they're ready!
       = button_to "Retrieve Cookie(s)", empty_oven_path, class: 'button tiny'
-    -# - if @oven.cookies_ready?
-    -#   \- and they're ready!
 
   - else
     Nothing

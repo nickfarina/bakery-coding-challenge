@@ -18,23 +18,3 @@ document.addEventListener("turbolinks:before-render", () => {
   const element = document.querySelector("[data-order-table]")
   if (element) ReactDOM.unmountComponentAtNode(element)
 })
-
-console.info("in ovens.js")
-const App = {}
-
-App.cable = ActionCable.createConsumer()
-
-App.messages = App.cable.subscriptions.create("OvensChannel", {
-  received: function (data) {
-    console.info("got data??", data)
-    switch (data.message) {
-      case "COOKIES_READY":
-        document
-          .querySelector(`.retrieve-section[data-oven-id="${data.oven_id}"]`)
-          .classList.add("ready")
-        return
-      default:
-        return
-    }
-  },
-})

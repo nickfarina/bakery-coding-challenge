@@ -9,4 +9,18 @@
   this.App || (this.App = {})
 
   App.cable = ActionCable.createConsumer()
+
+  App.messages = App.cable.subscriptions.create("OvensChannel", {
+    received: function (data) {
+      switch (data.message) {
+        case "COOKIES_READY":
+          document
+            .querySelector(`.retrieve-section[data-oven-id="${data.oven_id}"]`)
+            .classList.add("ready")
+          return
+        default:
+          return
+      }
+    },
+  })
 }.call(this))
