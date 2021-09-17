@@ -10,9 +10,8 @@ class CookiesController < ApplicationController
   end
 
   def create
-    cookies = []
-    batch_size.times do
-      cookies << Cookie.create!(cookie_create_params)
+    cookies = batch_size.times.map do
+      Cookie.create!(cookie_create_params)
     end
 
     CookCookiesJob.perform_later(cookies)
