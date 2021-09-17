@@ -8,6 +8,7 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
     = javascript_pack_tag 'orders'
     = csrf_meta_tags
+    = action_cable_meta_tag
   %body
     %header
       = render 'layouts/navigation'

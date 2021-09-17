@@ -15,7 +15,7 @@ class CookiesController < ApplicationController
       cookies << Cookie.create!(cookie_create_params)
     end
 
-    CookCookiesJob.perform_later(cookies)
+    CookCookiesJob.perform_later(cookies, oven)
 
     redirect_to oven_path(oven)
   end

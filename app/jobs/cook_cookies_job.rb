@@ -5,13 +5,19 @@ class CookCookiesJob < ApplicationJob
     # Do something later
 
     puts 'in cookiejob'
+
     cookies = args.first
+    oven = args.last
+
     puts cookies
 
-    sleep [2, 3, 4].sample.minutes
+    sleep [1].sample.second
 
     cookies.each do |cookie|
       cookie.update_attributes!(ready: true)
     end
+
+    puts 'cooked all cookies'
+    ActionCable.server.broadcast 'ovens', message: 'COOKIES_READY', oven_id: oven.id
   end
 end
