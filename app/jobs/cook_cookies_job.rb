@@ -5,7 +5,7 @@ class CookCookiesJob < ApplicationJob
     cookies = args.first
     oven = args.last
 
-    sleep [1, 2, 3].sample.seconds
+    sleep [2, 3, 4].sample.seconds
 
     cookies.each do |cookie|
       cookie.update_attributes!(ready: true)
