@@ -2,14 +2,8 @@ class CookCookiesJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    # Do something later
-
-    puts 'in cookiejob'
-
     cookies = args.first
     oven = args.last
-
-    puts cookies
 
     sleep [1].sample.second
 
