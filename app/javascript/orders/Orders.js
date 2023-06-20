@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 import { OrderTable } from "./OrderTable"
 
 export const Orders = () => {
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState(undefined)
 
   useEffect(() => {
     const go = async () => {
