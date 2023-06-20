@@ -1,5 +1,5 @@
 // @ts-check
-import React from "react"
+import React, { useState } from "react"
 
 export const OrderTable = ({ orders }) => (
   <table className="table orders-table">
@@ -23,7 +23,23 @@ export const OrderTable = ({ orders }) => (
   </table>
 )
 
-const OrderRow = ({ order }) => {
+const OrderRow = (props) => {
+  const [order, setOrder] = useState(props.order)
+  const [fulfillSubmissions, setFulfillSubmissions] = useState({})
+
+  const fulfillOrder = async (order) => {
+    setFulfillSubmissions({ ...fulfillSubmissions, [order.id]: true })
+
+    const response = await fetch(`/api/orders/${order.id}/fulfill`, {
+      method: "put",
+    })
+    const data = await response.json()
+
+    setOrder(data)
+  }
+
+  const fulfillButtonDisabled = (order) => fulfillSubmissions[order.id]
+
   return (
     <tr>
       <td>{order.id}</td>
@@ -33,7 +49,18 @@ const OrderRow = ({ order }) => {
       <td>{order.item}</td>
       <td>{order.quantity}</td>
       <td>{order.fulfilled ? `Fulfilled` : `In progress`}</td>
-      <td></td>
+      <td>
+        {!order.fulfilled && (
+          <button
+            onClick={() => {
+              fulfillOrder(order)
+            }}
+            disabled={fulfillButtonDisabled(order)}
+          >
+            Fulfill order
+          </button>
+        )}
+      </td>
     </tr>
   )
 }
