@@ -1,6 +1,5 @@
 // @ts-check
 import React, { useState } from "react"
-import React from "react"
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 
 const columnWidths = [111, 147, 136, 265, 313, 66, 144, 111]
@@ -20,7 +19,9 @@ export const OrderTable = ({ orders }) => (
       </tr>
     </thead>
     <tbody>
-      {orders ? <OrderTableBody orders={orders} /> : <LoadingRows />}
+      {orders.map((order) => (
+        <OrderRow order={order} key={order.id} />
+      ))}
     </tbody>
   </table>
 )
